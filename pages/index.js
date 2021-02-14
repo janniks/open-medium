@@ -1,8 +1,25 @@
 import Head from "next/head";
 import { useState } from "react";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/index.module.css";
 
-export default function Home() {
+import { promises as fs } from "fs";
+import path from "path";
+import terser from "terser";
+
+export async function getStaticProps() {
+  const code = await fs.readFile(
+    path.join(process.cwd(), "lib", "bookmarklet.js"),
+    "utf8"
+  );
+  const minified = await terser.minify(code);
+  const anonymous = `(function(){${minified.code}}());`;
+
+  return {
+    props: { bookmarklet: `javascript:${encodeURIComponent(anonymous)}` },
+  };
+}
+
+export default function Home({ bookmarklet }) {
   const [url, setUrl] = useState("");
   const updateUrl = (e) => setUrl(e.target.value);
 
@@ -21,7 +38,7 @@ export default function Home() {
         <p className={styles.description}>An API for sharing Medium articles</p>
         <div className={styles.example}>
           <code className={styles.code}>
-            {"curl http://localhost:3000/api/open?url=<MEDIUM_URL>"}
+            {"curl https://open-medium.now.sh/api/open?url=<MEDIUM_URL>"}
           </code>
         </div>
 
@@ -43,7 +60,7 @@ export default function Home() {
             <h3>iOS Shortcut &rarr;</h3>
             <p>Installable iOS shortcut</p>
           </a>
-          <a href="https://nextjs.org/learn" className={styles.card}>
+          <a href={bookmarklet} className={styles.card}>
             <h3>Bookmarklet</h3>
             <p>Drag this link to your bookmarks</p>
           </a>

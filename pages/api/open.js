@@ -1,5 +1,3 @@
-import { url } from "inspector";
-
 const { promisify } = require("util");
 const Twitter = require("twitter");
 

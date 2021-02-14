@@ -1,3 +1,5 @@
+import { url } from "inspector";
+
 const { promisify } = require("util");
 const Twitter = require("twitter");
 
@@ -41,6 +43,7 @@ export default async (req, res) => {
     res.setHeader("Cache-Control", `s-maxage=${cacheDays * 60 * 60 * 24}`);
     return res.json(new String(result.entities.urls[0].url));
   } catch (error) {
+    if (Array.isArray(error) && error.length > 0) error = error[0];
     return res.status(400).json({ error: error.message || error });
   }
 };

@@ -16,7 +16,7 @@ const tweet = promisify(client.post).bind(client);
 function isValidMediumUrl(string) {
   try {
     const url = new URL(string);
-    return hostnames.includes(url.hostname) && url.protocol === "https:";
+    return hostnames.some((h) => url.endsWith(h));
   } catch (e) {
     return false;
   }

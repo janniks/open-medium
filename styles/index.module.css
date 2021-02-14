@@ -102,6 +102,19 @@
   max-width: 800px;
 }
 
+.grid div {
+  display: inline-block;
+}
+
+.bookmarklet {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: transparent;
+}
+
 .reference {
   width: 100%;
   text-align: start;
@@ -111,7 +124,20 @@
   font-size: 0.75rem;
 }
 
+.tag {
+  color: black;
+  font-weight: normal;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 2px 4px;
+  margin-left: 4px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
 .gradient {
+  font-weight: bold;
   background: #da4efd;
   background: -webkit-linear-gradient(to left, #62bdfa 0%, #da4efd 100%);
   background: -moz-linear-gradient(to left, #62bdfa 0%, #da4efd 100%);
@@ -120,7 +146,13 @@
   -webkit-text-fill-color: transparent;
 }
 
+.link {
+  margin-top: 16px;
+  text-align: center;
+}
+
 .card {
+  position: relative;
   margin: 1rem;
   flex-basis: 45%;
   padding: 1.5rem;

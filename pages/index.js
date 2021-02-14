@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import styles from "../styles/index.module.css";
+import convert from "../lib/convert";
 
 import { promises as fs } from "fs";
 import path from "path";
@@ -20,8 +21,14 @@ export async function getStaticProps() {
 }
 
 export default function Home({ bookmarklet }) {
-  const [url, setUrl] = useState("");
-  const updateUrl = (e) => setUrl(e.target.value);
+  const [inputUrl, setInputUrl] = useState("");
+  const [outputUrl, setOutputUrl] = useState(null);
+
+  const updateInputUrl = (e) => setInputUrl(e.target.value);
+  const getUrl = (e) => {
+    e.preventDefault();
+    convert(inputUrl, (url) => setOutputUrl(url));
+  };
 
   return (
     <div className={styles.container}>
@@ -43,16 +50,24 @@ export default function Home({ bookmarklet }) {
         </div>
 
         <h2>Try it out!</h2>
-        <div className={styles.try}>
+        <form className={styles.try} onSubmit={getUrl}>
           <div className={styles.input}>
             <label>
-              Medium URL <input type="text" id="url" onChange={updateUrl} />
+              Medium URL{" "}
+              <input type="text" id="url" onChange={updateInputUrl} />
             </label>
           </div>
           <div className={styles.submit}>
-            <button onClick={() => alert("todo")}>Get URL</button>
+            <button type="submit">Get URL</button>
           </div>
-        </div>
+          {outputUrl && (
+            <div className={styles.link}>
+              <a href={outputUrl} className={styles.gradient}>
+                {outputUrl}
+              </a>
+            </div>
+          )}
+        </form>
 
         <h2>Extensions</h2>
         <div className={styles.grid}>
@@ -60,16 +75,22 @@ export default function Home({ bookmarklet }) {
             <h3>iOS Shortcut &rarr;</h3>
             <p>Installable iOS shortcut</p>
           </a>
-          <a href={bookmarklet} className={styles.card}>
+          <div className={styles.card}>
+            <a href={bookmarklet} className={styles.bookmarklet}>
+              OpenMedium
+            </a>
             <h3>Bookmarklet</h3>
             <p>Drag this link to your bookmarks</p>
-          </a>
+          </div>
         </div>
 
         <h2>API Reference</h2>
 
         <div className={styles.reference}>
-          <h3>/api/open</h3>
+          <h3>
+            /api/open <span className={styles.tag}>GET</span>
+            <span className={styles.tag}>POST</span>
+          </h3>
           <p>
             Returns the short <strong>t.co</strong> link for a given Medium
             article

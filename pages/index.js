@@ -44,7 +44,9 @@ export default function Home({ bookmarklet }) {
 
         <p className={styles.description}>An API for sharing Medium articles</p>
         <div className={styles.example}>
-          <code>{"curl https://open-medium.now.sh/api?url=<MEDIUM_URL>"}</code>
+          <code className={styles.code}>
+            {"curl https://open-medium.now.sh/api?url=<MEDIUM_URL>"}
+          </code>
         </div>
 
         <h2>Try it out!</h2>

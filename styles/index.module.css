@@ -66,6 +66,7 @@
   background: #fafafa;
   border-radius: 5px;
   padding: 0.75rem;
+  line-height: 2rem;
   font-size: 1.1rem;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
@@ -194,6 +195,10 @@
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+
+  .example .code {
+    font-size: 0.875rem;
   }
 }
 

@@ -13,10 +13,12 @@ const client = new Twitter({
 const tweet = promisify(client.post).bind(client);
 
 // adapted from https://stackoverflow.com/a/43467144/1139105
-function isValidMediumUrl(string) {
+function isValidUrl(string) {
   try {
-    const url = new URL(string);
-    return url.protocol === "https";
+    new URL(string);
+    // const url = new URL(string);
+    return true;
+    // return url.protocol === "https";
     // return hostnames.some((h) => url.hostname.endsWith(h));
   } catch (e) {
     return false;
@@ -31,7 +33,7 @@ export default async (req, res) => {
       throw Error("Missing query parameter: 'url'");
     }
 
-    if (!isValidMediumUrl(url)) {
+    if (!isValidUrl(url)) {
       throw Error("Not a valid Medium URL");
     }
 

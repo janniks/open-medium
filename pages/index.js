@@ -104,7 +104,7 @@ export default function Home({ bookmarklet }) {
       </main>
 
       <footer className={styles.footer}>
-        Made by{" "}
+        Deployed with{" "}
         <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
       </footer>
     </div>
